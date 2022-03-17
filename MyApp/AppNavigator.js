@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 function AuthStack(){
     return(    
-      <Stack.Navigator screenOptions = {{headerTitleAlign:"center"}}>
+      <Stack.Navigator screenOptions = {{headerTitleAlign:"center",headerShown:false}}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

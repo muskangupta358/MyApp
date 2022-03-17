@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet,Image,TextInput,TouchableOpacity } from 'react-native';
+import Input from '../common/Input';
 
 export default function Login(props){
   return (
@@ -9,11 +10,16 @@ export default function Login(props){
       </View>
       <Text style={styles.text1}>Welcome Back</Text>
       <Text style={styles.text2}>Login to your account</Text>
-      <TextInput style={[styles.input,styles.shadow]} placeholder="UserName"/>
-      <TextInput style={[styles.input,styles.shadow]} placeholder="Password"/>
+      <Input text={'Username'}/>
+      <Input text={'Password'}/>
+      <Text style={[styles.text2,{fontWeight : 'bold',marginLeft:230}]} onPress={()=>{props.navigation.navigate('ForgotPassword',{})}}>Forgot Password?</Text>
       <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{props.navigation.navigate('SignUp',{})}} >
           <Text style={styles.btnText}>LOGIN</Text>
       </TouchableOpacity>
+      <View style = {{flexDirection:'row', flexWrap:'wrap'}}>
+        <Text style={styles.text2}>Don't have an account? </Text>
+        <Text style={[styles.text2,{fontWeight : 'bold'}]} onPress={()=>{props.navigation.navigate('SignUp',{})}}>Sign Up</Text>
+      </View>
     </View>
   );
 }
@@ -25,28 +31,10 @@ const styles = StyleSheet.create({
         alignItems : 'center',
     },
     image : {
-        height : 200,
+        height : 280,
         width : 410,
         borderBottomLeftRadius: 99999,
         borderBottomRightRadius: 99999,
-    },
-    shadow : {
-        shadowColor: "black",
-        shadowOpacity: 0.5,
-        shadowRadius: 50,
-        shadowOffset: {
-        height: 2,
-        width: 2,
-        } ,
-        elevation: 3,
-    },
-    input : {
-        marginVertical : 10,
-        color : 'white',
-        backgroundColor : '#83eaf1',
-        width : 370,
-        borderRadius : 30,
-        paddingLeft : 15
     },
     text1 :{
         color : 'white',
@@ -64,14 +52,15 @@ const styles = StyleSheet.create({
     btn : {
         height : 50,
         width : 370,
-        marginTop : 120,
-        backgroundColor: '#83eaf1',
+        marginTop : 140,
+        backgroundColor: '#29548f',
         justifyContent : 'center',
         alignItems : 'center',
         borderRadius : 30,
     },
     btnText : {
-        color : 'white'
+        color : 'white',
+        fontWeight : 'bold',
     }
 
 });
