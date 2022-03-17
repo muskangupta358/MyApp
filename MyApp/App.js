@@ -1,22 +1,12 @@
 import React,{useEffect} from 'react';
 import { Text, View, StyleSheet ,Alert} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import { AuthStack } from './AppNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
 
-      
-  async function checkApplicationPermission() {
-    const authorizationStatus = await messaging().requestPermission();
-
-    if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
-      console.log('User has notification permissions enabled.');
-    } else if (authorizationStatus === messaging.AuthorizationStatus.PROVISIONAL) {
-      console.log('User has provisional notification permissions.');
-    } else {
-      console.log('User has notification permissions disabled');
-    }
-  }
-
+ 
   useEffect(() => {
 
     messaging().getToken().then((response)=> {
@@ -34,15 +24,12 @@ export default function App() {
     }
     );
 
-    checkApplicationPermission();
-
     return unsubscribe;
   }, []);
 
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
-    
+    <NavigationContainer>
+      <AuthStack/>
+    </NavigationContainer>
   );
 }
