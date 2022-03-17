@@ -23,6 +23,7 @@ export default function Login(props){
     </View>
   );
 }
+//https://cdn.vectorstock.com/i/1000x1000/97/16/watercolor-culinary-objects-spoons-and-flowers-vector-34089716.webp
 
 const styles = StyleSheet.create({
     main : {
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
         height : 50,
         width : 370,
         marginTop : 140,
-        backgroundColor: '#29548f',
+        backgroundColor: '#2b5391',
         justifyContent : 'center',
         alignItems : 'center',
         borderRadius : 30,
