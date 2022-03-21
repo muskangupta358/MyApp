@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
 import { Text, View, StyleSheet,TouchableOpacity,Image } from 'react-native';
 
-export default function BackBtn(props){
+export default function SocialBtn(props){
   return (
     <View style = {styles.button}>
         <TouchableOpacity style = {styles.headerBtn} onPress = {props.onClick}>       
-            <Image style = {styles.logo} source={{uri: 'https://cdn-icons-png.flaticon.com/512/93/93634.png'}} tintColor='#2b5391'/>
+            <Image style = {styles.logo} source={{uri: props.url}} />
         </TouchableOpacity>
     </View>
   );
@@ -15,22 +15,18 @@ const styles = StyleSheet.create({
     button : {
         width: 50,
         height: 50,
-        position : 'absolute',
-        top : 30,
-        left : 20,
-        zIndex: 1,
+        marginTop : 40,
     },
     logo : {
         width: 50,
         height: 50,
-        tintColor: "#2b5391"
+        
     },
     headerBtn : {
         justifyContent : 'center',
         alignItems : 'center',
         height: 50,
         width : 50,
-        marginLeft:10,
-        marginTop : 30,
+        
     }
 });
