@@ -23,7 +23,6 @@ export default function Login(props){
     </View>
   );
 }
-//https://cdn.vectorstock.com/i/1000x1000/97/16/watercolor-culinary-objects-spoons-and-flowers-vector-34089716.webp
 
 const styles = StyleSheet.create({
     main : {

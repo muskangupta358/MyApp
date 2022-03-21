@@ -4,7 +4,7 @@ import { Text, View, StyleSheet,TextInput } from 'react-native';
 export default function Input(props){
   return (
     <View>
-        <TextInput style={[styles.input,styles.shadow]} placeholder={props.text} placeholderTextColor="#2596be"/>
+        <TextInput style={[styles.input,styles.shadow,{width : props?.width || 370, marginHorizontal: props?.margin}]} placeholder={props.text} placeholderTextColor="#2596be"/>
     </View>
   );
 }
