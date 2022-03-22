@@ -20,7 +20,7 @@ export default function App() {
   useEffect(() => {
     // **************** Generate Token *******************
     messaging().getToken().then((response)=> {
-      console.log(response);
+      //console.log(response);
     }).catch(()=>{
         Alert.alert('No notification')
       }
@@ -29,13 +29,14 @@ export default function App() {
     // **************** Authenticate User exists or not *******************
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
 
+
     // **************** Foreground Message Handler *******************
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log(remoteMessage.notification.body)
       Alert.alert('A new FCM message arrived!', remoteMessage.notification.body
       //JSON.stringify(remoteMessage)
-      );
-    }
+        );
+      }
     );
 
     return unsubscribe,subscriber;
@@ -51,11 +52,6 @@ export default function App() {
       </NavigationContainer>
     );
   }
-  // return (
-  //   <View>
-  //     <Text>Welcome {user.email}</Text>
-  //   </View>
-  // );
   console.log('signed in :');
   console.log(user.email);
   return (

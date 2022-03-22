@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         height: 50,
         position : 'absolute',
         top : 30,
-        left : 20,
+        left : 10,
         zIndex: 1,
     },
     logo : {

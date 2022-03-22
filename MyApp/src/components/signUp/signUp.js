@@ -1,16 +1,17 @@
 import React,{useState,useEffect} from 'react';
-import { Text, View, StyleSheet,Image,TouchableOpacity,ImageBackground} from 'react-native';
+import { Text, View, StyleSheet,Image,TouchableOpacity,Alert,ScrollView} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin,GoogleSigninButton,statusCodes} from '@react-native-google-signin/google-signin';
+import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signin';
 import Input from '../common/Input';
 import BackBtn from '../common/backBtn';
 import SocialBtn from '../common/socialBtn';
 
 export default function Login(props){
 
+  const [user, setUser] = useState();
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
-
+  const [confirmpass, setConfirmpass] = useState();
 
 
   useEffect (() => {
@@ -23,10 +24,10 @@ export default function Login(props){
   const googleSignUp = async () => {
     try {
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
-      console.log(userInfo.user.email);
-      signUp(userInfo.user.email,'1234abc');
-      
+      // console.log(userInfo);
+      // console.log(userInfo.user.email);
+      signUp(userInfo.user.email,'1234abc',true);
+
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log("SIGN_IN_CANCELLED");
@@ -39,7 +40,7 @@ export default function Login(props){
     }
   };
 
-  const signUp = (email,pass) => {
+  const signUp = (email,pass,isSocial) => {
     auth()
     .createUserWithEmailAndPassword(email,pass)
     .then(() => {
@@ -47,15 +48,33 @@ export default function Login(props){
     })
     .catch(error => {
       if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
+        if(isSocial){
+          GoogleSignin.signOut()
+          .then(()=>{
+            console.log('Google logged out');
+          });
+          Alert.alert('This account is already signed Up! Please Login');
+        }
+        else
+          Alert.alert('That email address is already in use!');
       }
-  
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
+      else if (error.code === 'auth/invalid-email') {
+        Alert.alert('That email address is invalid!');
       }
-      console.error(error);
+      else{
+        console.log(error);
+      }
     });
   }
+
+  const valid_email = (mail) => {
+    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    let isValid = regex.test(mail);
+    console.log(isValid);
+    if(!isValid)
+      Alert.alert('Enter Valid Email Address')
+  }
+  
 
   const pull_email = (data) => {
     setEmail(data)
@@ -64,9 +83,16 @@ export default function Login(props){
   const pull_pass = (data) => {
     setPass(data)
   }
-  
 
+  const pull_user = (data) => {
+    setUser(data)
+  }
+
+  const pull_confirmpass = (data) => {
+    setConfirmpass(data)
+  }
   return (
+    <ScrollView>
     <View style = {styles.main}>
       <View style = {styles.shadow}>
       <BackBtn onClick={() => props.navigation.goBack()}/>
@@ -74,22 +100,29 @@ export default function Login(props){
       </View>
       <Text style={styles.text1}>Sign Up</Text>
       <Text style={styles.text2}>Create your account</Text>
-      <Input text={'Username'}  />
-      <Input text={'Email Address'} func={pull_email} />
+      <Input text={'Username'} onChangeText={pull_user} value={user} />
+      <Input text={'Email Address'} onChangeText={pull_email} value={email} 
+      onBlur={()=>{valid_email(email)}} 
+      />
       <View style = {{flexDirection:'row', flexWrap:'wrap',justifyContent:'space-around'}}>
-        <Input text={'Password'} width={160} margin = {17} func={pull_pass}/>
-        <Input text={'Confirm Password'} width={160} margin = {17} />
+        <Input text={'Password'} width={160} margin = {17} onChangeText={pull_pass} value={pass} protected={true}/>
+        <Input text={'Confirm Password'} width={160} margin = {17} onChangeText={pull_confirmpass} value={confirmpass} protected={true}/>
       </View>
       <Text style={[styles.text3]}>By registering, you are agreeing to our Terms of use and Privacy Policy</Text>
 
-      <View style = {{flex: 1,justifyContent: 'space-around',alignItems : 'center',flexDirection:'row',flexWrap:'wrap',width:370}}>
+      <View style = {styles.social}>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/270/270014.png'}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185981.png'}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185961.png'}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185964.png'}/>
       </View>
 
-      <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{signUp(email,pass)}} >
+      <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{
+        if(pass === confirmpass)
+          signUp(email,pass,false)
+        else
+          Alert.alert('Passwords do not match')
+        }}>
           <Text style={styles.btnText}>SIGN UP</Text>
       </TouchableOpacity>
 
@@ -98,6 +131,7 @@ export default function Login(props){
         <Text style={[styles.text2,{fontWeight : 'bold'}]} onPress={()=>{props.navigation.navigate('Login',{})}}>Login</Text>
       </View>
     </View>
+    </ScrollView>
   );
 }
 //
@@ -133,10 +167,18 @@ const styles = StyleSheet.create({
       marginVertical : 7,
       marginHorizontal : 17,
     },
+    social:{
+      justifyContent: 'space-around',
+      alignItems : 'center',
+      flexDirection:'row',
+      flexWrap:'wrap',
+      width:370,
+      height:80
+    },
     btn : {
         height : 50,
         width : 370,
-        marginTop : 50,
+        marginTop : 10,
         backgroundColor: '#2b5391',
         justifyContent : 'center',
         alignItems : 'center',

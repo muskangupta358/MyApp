@@ -2,11 +2,12 @@ import React from 'react';
 import { Text, View, StyleSheet,TextInput } from 'react-native';
 
 export default function Input(props){
-
   return (
     <View>
         <TextInput style={[styles.input,styles.shadow,{width : props?.width || 370, marginHorizontal: props?.margin}]} placeholder={props.text} placeholderTextColor="#2596be" 
-         onChangeText={props?.func} value={props?.value} />
+         onChangeText={props?.onChangeText} value={props?.value} autoCapitalize="none" secureTextEntry={props?.protected || false}
+         onBlur={props?.onBlur}
+         />
     </View>
   );
 }
