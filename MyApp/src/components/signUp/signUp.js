@@ -5,6 +5,7 @@ import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signi
 import Input from '../common/Input';
 import BackBtn from '../common/backBtn';
 import SocialBtn from '../common/socialBtn';
+import valid_email from '../common/validEmail';
 
 export default function Login(props){
 
@@ -67,13 +68,7 @@ export default function Login(props){
     });
   }
 
-  const valid_email = (mail) => {
-    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-    let isValid = regex.test(mail);
-    console.log(isValid);
-    if(!isValid)
-      Alert.alert('Enter Valid Email Address')
-  }
+
   
 
   const pull_email = (data) => {

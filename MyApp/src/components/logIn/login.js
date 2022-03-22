@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import Input from '../common/Input';
 import SocialBtn from '../common/socialBtn';
 import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signin';
+import valid_email from '../common/validEmail';
 
 export default function Login(props){
 
@@ -16,23 +17,13 @@ export default function Login(props){
     });
   },[]);
 
-
-  const valid_email = (mail) => {
-    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-    let isValid = regex.test(mail);
-    console.log(isValid);
-    if(!isValid)
-      Alert.alert('Enter Valid Email Address')
-  }
-
   const googleLogin = async () => {
     try {
       const userInfo = await GoogleSignin.signIn();
-      // console.log(userInfo);
-      // console.log(userInfo.user.email);
       login(userInfo.user.email,'1234abc');
-    } catch (error) {
-        console.log(error);
+    } 
+    catch (error) {
+      console.log(error);
     }
   };
 

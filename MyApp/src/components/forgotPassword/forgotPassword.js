@@ -3,6 +3,7 @@ import { Text, View, StyleSheet,Image ,TouchableOpacity,ScrollView,Alert} from '
 import BackBtn from '../common/backBtn';
 import Input from '../common/Input';
 import auth from '@react-native-firebase/auth';
+import valid_email from '../common/validEmail';
 
 export default function ForgotPassword(props){
 
@@ -12,6 +13,7 @@ const forgotPassword = (Email) => {
         auth().sendPasswordResetEmail(Email)
           .then((user) => {
             Alert.alert('Password Change link send to given email')
+            props.navigation.navigate('Login',{});
           }).catch((e) => {
             console.log(e)
           })
@@ -20,14 +22,6 @@ const forgotPassword = (Email) => {
 const pull_email = (data) => {
     setEmail(data)
 }
-
-const valid_email = (mail) => {
-    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-    let isValid = regex.test(mail);
-    console.log(isValid);
-    if(!isValid)
-      Alert.alert('Enter Valid Email Address')
-  }
 
   return (
       <ScrollView>
@@ -38,7 +32,9 @@ const valid_email = (mail) => {
       <Text style={styles.text2}>Don't Worry! It happens. </Text>
       <Input text={'Email Address'} onChangeText={pull_email} value={email} 
       onBlur={()=>{valid_email(email)}} />
-      <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{forgotPassword(email)}} >
+      <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{
+        forgotPassword(email);
+        }} >
           <Text style={styles.btnText}>SUBMIT</Text>
       </TouchableOpacity>
     </View>
