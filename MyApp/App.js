@@ -45,15 +45,15 @@ export default function App() {
   if (initializing) return null;
 
   if (!user) {
-    console.log('not signed in');
+    //console.log('not signed in');
     return (
       <NavigationContainer>
         <AuthStack/>
       </NavigationContainer>
     );
   }
-  console.log('signed in :');
-  console.log(user.email);
+  // console.log('signed in :');
+  // console.log(user.email);
   return (
     <HomeScreen/>
   );
