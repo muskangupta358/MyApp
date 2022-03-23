@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet,Image ,TouchableOpacity,Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import DisplayText from '../common/displayText';
 
 export default function HomeScreen(props){
     const out = () =>{
@@ -20,8 +21,8 @@ export default function HomeScreen(props){
     }
     return (
         <View style={{flex : 1,justifyContent:"center",alignItems:'center'}}>
-            <Text>HomeScreen</Text>
             <Button title='Signout' onPress={()=>{out()}}></Button>
+            <DisplayText title={'Welcome'} description={'Welcome to HomeScreen'} error={false} />
         </View>
     );
 }
