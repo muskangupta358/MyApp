@@ -68,9 +68,6 @@ export default function Login(props){
     });
   }
 
-
-  
-
   const pull_email = (data) => {
     setEmail(data)
   }
@@ -91,7 +88,7 @@ export default function Login(props){
     <View style = {styles.main}>
       <View style = {styles.shadow}>
       <BackBtn onClick={() => props.navigation.goBack()}/>
-      <Image style = {styles.image} source={{uri: 'https://img.freepik.com/free-vector/bluebell-flowers-illustration_254915-2.jpg?w=1380'} /*require('../../assets/snack-icon.png')*/}/>
+      <Image style = {styles.image} source={require('../../assets/Flower.webp')}/>
       </View>
       <Text style={styles.text1}>Sign Up</Text>
       <Text style={styles.text2}>Create your account</Text>
@@ -106,7 +103,7 @@ export default function Login(props){
       <Text style={[styles.text3]}>By registering, you are agreeing to our Terms of use and Privacy Policy</Text>
 
       <View style = {styles.social}>
-        <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/270/270014.png'}/>
+        <SocialBtn onClick={() => googleSignUp() } url={require('../../assets/twitter.png')}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185981.png'}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185961.png'}/>
         <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185964.png'}/>

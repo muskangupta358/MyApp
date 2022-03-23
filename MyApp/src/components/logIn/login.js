@@ -52,7 +52,7 @@ export default function Login(props){
     <ScrollView>
     <View style = {styles.main}>
       <View style = {styles.shadow}>
-      <Image style = {styles.image} source={{uri: 'https://img.freepik.com/free-vector/bluebell-flowers-illustration_254915-2.jpg?w=1380'} /*require('../../assets/snack-icon.png')*/}/>
+      <Image style = {styles.image} source={require('../../assets/Flower.webp')}/>
       </View>
       <Text style={styles.text1}>Welcome Back</Text>
       <Text style={styles.text2}>Login to your account</Text>

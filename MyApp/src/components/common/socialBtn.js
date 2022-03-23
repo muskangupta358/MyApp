@@ -5,7 +5,7 @@ export default function SocialBtn(props){
   return (
     <View style = {styles.button}>
         <TouchableOpacity style = {styles.headerBtn} onPress = {props.onClick}>       
-            <Image style = {styles.logo} source={{uri: props.url}} />
+            <Image style = {styles.logo} source={props.url} />
         </TouchableOpacity>
     </View>
   );

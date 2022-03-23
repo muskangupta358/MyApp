@@ -5,7 +5,7 @@ export default function BackBtn(props){
   return (
     <View style = {styles.button}>
         <TouchableOpacity style = {styles.headerBtn} onPress = {props.onClick}>       
-            <Image style = {styles.logo} source={{uri: 'https://cdn-icons-png.flaticon.com/512/93/93634.png'}} tintColor='#2b5391'/>
+            <Image style = {styles.logo} source={require('../../assets/backButton.png')} tintColor='#2b5391'/>
         </TouchableOpacity>
     </View>
   );
