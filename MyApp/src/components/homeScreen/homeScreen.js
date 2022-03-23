@@ -21,8 +21,9 @@ export default function HomeScreen(props){
     }
     return (
         <View style={{flex : 1,justifyContent:"center",alignItems:'center'}}>
-            <Button title='Signout' onPress={()=>{out()}}></Button>
             <DisplayText title={'Welcome'} description={'Welcome to HomeScreen'} error={false} />
+            <Button title='Signout' onPress={()=>{out()}}></Button>
+            <Button title='Go' onPress={()=>{props.navigation.navigate('AddUpholder',{})}}></Button>
         </View>
     );
 }

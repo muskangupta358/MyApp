@@ -6,7 +6,12 @@ import Login from './src/components/logIn/login';
 import SignUp from './src/components/signUp/signUp';
 import ForgotPassword from './src/components/forgotPassword/forgotPassword';
 
+import HomeScreen from './src/components/homeScreen/homeScreen';
+import AddUpholder from './src/components/addUpholder/addUpholder';
+import AddEntry from './src/components/addEntry/addEntry';
+
 const Stack = createStackNavigator();
+const Stack2 = createStackNavigator();
 
 function AuthStack(){
     return(    
@@ -18,4 +23,15 @@ function AuthStack(){
       );
   }
 
-export {AuthStack};
+
+function MainStack(){
+  return(    
+    <Stack2.Navigator screenOptions = {{headerTitleAlign:"center",headerShown:false}}>
+      <Stack2.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack2.Screen name="AddUpholder" component={AddUpholder} />
+      <Stack2.Screen name="AddEntry" component={AddEntry} />
+    </Stack2.Navigator>
+    );
+}
+
+export {AuthStack,MainStack};
