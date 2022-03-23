@@ -61,10 +61,10 @@ export default function Login(props){
       <Text style={[styles.text2,{fontWeight : 'bold',marginLeft:230}]} onPress={()=>{props.navigation.navigate('ForgotPassword',{})}}>Forgot Password?</Text>
 
       <View style = {styles.social}>
-        <SocialBtn onClick={() => googleLogin() } url={'https://cdn-icons-png.flaticon.com/512/270/270014.png'}/>
-        <SocialBtn onClick={() => googleLogin() } url={'https://cdn-icons-png.flaticon.com/512/185/185981.png'}/>
-        <SocialBtn onClick={() => googleLogin() } url={'https://cdn-icons-png.flaticon.com/512/185/185961.png'}/>
-        <SocialBtn onClick={() => googleLogin() } url={'https://cdn-icons-png.flaticon.com/512/185/185964.png'}/>
+        <SocialBtn onClick={() => googleLogin() } url={require('../../assets/googleIcon.png')}/>
+        <SocialBtn onClick={() => googleLogin() } url={require('../../assets/facebook.png')}/>
+        <SocialBtn onClick={() => googleLogin() } url={require('../../assets/twitter.png')}/>
+        <SocialBtn onClick={() => googleLogin() } url={require('../../assets/apple.png')}/>
         </View>
 
       <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{login(email,pass)}} >

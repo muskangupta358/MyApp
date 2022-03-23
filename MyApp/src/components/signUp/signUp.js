@@ -103,10 +103,10 @@ export default function Login(props){
       <Text style={[styles.text3]}>By registering, you are agreeing to our Terms of use and Privacy Policy</Text>
 
       <View style = {styles.social}>
+        <SocialBtn onClick={() => googleSignUp() } url={require('../../assets/googleIcon.png')}/>
+        <SocialBtn onClick={() => googleSignUp() } url={require('../../assets/facebook.png')}/>
         <SocialBtn onClick={() => googleSignUp() } url={require('../../assets/twitter.png')}/>
-        <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185981.png'}/>
-        <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185961.png'}/>
-        <SocialBtn onClick={() => googleSignUp() } url={'https://cdn-icons-png.flaticon.com/512/185/185964.png'}/>
+        <SocialBtn onClick={() => googleSignUp() } url={require('../../assets/apple.png')}/>
       </View>
 
       <TouchableOpacity style={[styles.btn,styles.shadow]} onPress={()=>{
