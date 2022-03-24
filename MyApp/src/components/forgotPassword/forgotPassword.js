@@ -3,7 +3,7 @@ import { Text, View, StyleSheet,Image ,TouchableOpacity,ScrollView,Alert} from '
 import BackBtn from '../common/backBtn';
 import Input from '../common/Input';
 import auth from '@react-native-firebase/auth';
-import valid_email from '../common/validEmail';
+import valid_email from '../../utilities/validEmail';
 
 export default function ForgotPassword(props){
 

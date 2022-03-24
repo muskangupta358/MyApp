@@ -3,11 +3,11 @@ import { Text, View,Image ,TouchableOpacity,Button,StyleSheet} from 'react-nativ
 
 export default function FlatBtn(props){
     return (
-        <TouchableOpacity style={styles.main}>
+        <TouchableOpacity style={styles.main} onPress={props?.onPress}>
             <Image style = {styles.image} source={require('../../assets/moneyIcon.png')}/>
             <Text style = {styles.heading} >Upholder 1</Text>
             <TouchableOpacity>
-            <Image style = {styles.image} source={require('../../assets/menuColored.png')}/>
+            <Image style = {styles.menuImage} source={require('../../assets/menuColored.png')}/>
             </TouchableOpacity>
         </TouchableOpacity>
     );
@@ -20,14 +20,19 @@ const styles = StyleSheet.create({
         flexWrap : 'wrap',
         justifyContent : 'space-between',
         alignItems : 'center',
-        padding : 20
+        padding : 20,
+        backgroundColor : 'white'
     },
     image : {
-        height : 35,
-        width : 35,
+        height : 30,
+        width : 30,
+    },
+    menuImage : {
+        height : 25,
+        width : 25,
     },
     heading : {
-        fontSize : 25,
+        fontSize : 20,
     },
 
 });

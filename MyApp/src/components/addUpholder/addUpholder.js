@@ -1,5 +1,5 @@
-import React,{} from 'react';
-import { Text, View,Image ,TouchableOpacity,Button , FlatList} from 'react-native';
+import React,{useState} from 'react';
+import { Text, View,Image ,TouchableOpacity,TextInput,Animated,FlatList,Button,Easing} from 'react-native';
 import styles from './addUpholder.styles';
 import FlatBtn from '../common/flatBtn';
 
@@ -9,6 +9,25 @@ export default function AddUpholder(props){
     // const renderItem = ({ item }) => (
         
     // );
+
+    const [heightMenu,setHeightMenu] = useState(new Animated.Value(0));
+
+    const addMenu = () =>{
+        Animated.timing(heightMenu, {
+            toValue: 250,
+            duration: 400,
+            easing : Easing.elastic(1),
+            useNativeDriver: false,
+          }).start();
+      }
+
+    const cancelMenu = () =>{
+        Animated.timing(heightMenu, {
+            toValue: 0,
+            duration: 30,
+            useNativeDriver: false
+          }).start();
+      }
 
     return (
         <View style={styles.container}>
@@ -24,15 +43,31 @@ export default function AddUpholder(props){
                     <Text style={styles.textSmall}>Muskan Gupta</Text>
                 </View>
             </View>
-            <FlatBtn></FlatBtn>
+
+            <TextInput style={[styles.search,styles.shadow]} placeholder='🔍 Search by upholder name' placeholderTextColor="#2596be" autoCapitalize="none" />
+
+            <FlatBtn onPress={()=>{props.navigation.navigate('AddEntry',{upholder : 'UpholderDummy'})}}></FlatBtn>
             <FlatBtn></FlatBtn>
             <FlatList 
                 style = {styles.upholderView}
                 //renderItem={renderItem}
             />
-            <TouchableOpacity style = {styles.addBtn}>
+            <TouchableOpacity style = {styles.addBtn} onPress={addMenu}>
                 <Text style={styles.addSign}>+</Text>
             </TouchableOpacity>
+
+            <Animated.View style={[styles.animatedView,{height: heightMenu}]}>
+                <View style={styles.animatedSubview}>
+                    <TouchableOpacity onPress={cancelMenu} >
+                        <Image style = {styles.cancelImage} source={require('../../assets/close.png')}/>
+                    </TouchableOpacity>
+                    <Text style = {styles.animatedText} >Create Upholder</Text>
+                </View>
+                <TextInput style={[styles.search,styles.shadow]} placeholder='Add upholder name' placeholderTextColor="#2596be" autoCapitalize="none" />
+                <TouchableOpacity style = {[styles.saveBtn,styles.shadow]}>
+                    <Text style ={{color : 'white',fontWeight : 'bold'}}>Save</Text>
+                </TouchableOpacity>
+            </Animated.View >
         </View>
     );
 }

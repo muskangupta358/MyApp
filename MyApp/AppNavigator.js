@@ -9,6 +9,7 @@ import ForgotPassword from './src/components/forgotPassword/forgotPassword';
 import HomeScreen from './src/components/homeScreen/homeScreen';
 import AddUpholder from './src/components/addUpholder/addUpholder';
 import AddEntry from './src/components/addEntry/addEntry';
+import EntryDetails from './src/components/entryDetails/entryDetails';
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
@@ -30,6 +31,7 @@ function MainStack(){
       <Stack2.Screen name="HomeScreen" component={HomeScreen} />
       <Stack2.Screen name="AddUpholder" component={AddUpholder} />
       <Stack2.Screen name="AddEntry" component={AddEntry} />
+      <Stack2.Screen name="EntryDetails" component={EntryDetails} />
     </Stack2.Navigator>
     );
 }
