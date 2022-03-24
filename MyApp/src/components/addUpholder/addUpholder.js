@@ -1,6 +1,7 @@
 import React,{} from 'react';
 import { Text, View,Image ,TouchableOpacity,Button , FlatList} from 'react-native';
 import styles from './addUpholder.styles';
+import FlatBtn from '../common/flatBtn';
 
 
 export default function AddUpholder(props){
@@ -23,6 +24,8 @@ export default function AddUpholder(props){
                     <Text style={styles.textSmall}>Muskan Gupta</Text>
                 </View>
             </View>
+            <FlatBtn></FlatBtn>
+            <FlatBtn></FlatBtn>
             <FlatList 
                 style = {styles.upholderView}
                 //renderItem={renderItem}

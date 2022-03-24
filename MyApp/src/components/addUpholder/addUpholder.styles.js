@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   profileImg : {
     height : 80,
     width : 80,
+    borderRadius : 40
   },
   textMoney : {
     fontSize : 50,
