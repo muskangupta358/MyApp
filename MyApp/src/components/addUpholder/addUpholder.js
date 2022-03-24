@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { Text, View,Image ,TouchableOpacity,TextInput,Animated,FlatList,Button,Easing} from 'react-native';
 import styles from './addUpholder.styles';
 import FlatBtn from '../common/flatBtn';
+import Input2 from '../common/Input2';
 
 
 export default function AddUpholder(props){
@@ -63,7 +64,7 @@ export default function AddUpholder(props){
                     </TouchableOpacity>
                     <Text style = {styles.animatedText} >Create Upholder</Text>
                 </View>
-                <TextInput style={[styles.search,styles.shadow]} placeholder='Add upholder name' placeholderTextColor="#2596be" autoCapitalize="none" />
+                <Input2 text={'Add upholder name'}/>
                 <TouchableOpacity style = {[styles.saveBtn,styles.shadow]}>
                     <Text style ={{color : 'white',fontWeight : 'bold'}}>Save</Text>
                 </TouchableOpacity>

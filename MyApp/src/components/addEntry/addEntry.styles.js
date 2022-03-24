@@ -64,26 +64,15 @@ const styles = StyleSheet.create({
 
       position : 'absolute',
       height : 60,
-      width : 140,
-      backgroundColor : 'green',
+      backgroundColor : '#2596be',
       bottom : 30,
       left : 40,
+      right : 40,
       borderRadius : 10,
       justifyContent : 'center',
       alignItems : 'center'
   },
-  cashout : {
-    position : 'absolute',
-    height : 60,
-    width : 140,
-    bottom : 30,
-    right : 40,
-    borderRadius : 10,
-    backgroundColor : '#D71709',
-    justifyContent : 'center',
-    alignItems : 'center'
-  },
-
+  
   cashText : {
     color : 'white',
     fontSize : 20

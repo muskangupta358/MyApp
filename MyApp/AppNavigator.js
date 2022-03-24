@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet ,Alert} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import Login from './src/components/logIn/login';
 import SignUp from './src/components/signUp/signUp';
@@ -10,9 +10,11 @@ import HomeScreen from './src/components/homeScreen/homeScreen';
 import AddUpholder from './src/components/addUpholder/addUpholder';
 import AddEntry from './src/components/addEntry/addEntry';
 import EntryDetails from './src/components/entryDetails/entryDetails';
+import ExpenseIncome from './src/components/common/expenseIncome';
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function AuthStack(){
     return(    
@@ -36,4 +38,13 @@ function MainStack(){
     );
 }
 
-export {AuthStack,MainStack};
+function ExpenseIncome_Tab(){
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Expense" component={ExpenseIncome} />
+      <Tab.Screen name="Income" component={ExpenseIncome} />
+    </Tab.Navigator>
+  );
+}
+
+export {AuthStack,MainStack,ExpenseIncome_Tab};

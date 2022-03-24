@@ -24,11 +24,9 @@ export default function AddEntry(props){
             </View>
             <Text style={styles.tranText}>Transactions</Text>
             <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('EntryDetails',{})}}>
-                <Text style={styles.cashText}>+  Cash In</Text>
+                <Text style={styles.cashText}>Add Transaction</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.cashout,styles.shadow]} onPress={()=>{props.navigation.navigate('EntryDetails',{})}}>
-                <Text style={styles.cashText}>-  Cash Out</Text>
-            </TouchableOpacity>
+            
         </View>
     );
 }
