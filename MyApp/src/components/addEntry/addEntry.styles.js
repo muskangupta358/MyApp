@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
         width: 1
     } 
     },
+    centeredView: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor:'rgba(0,0,0,0.4)',
+    },
 
 });
 

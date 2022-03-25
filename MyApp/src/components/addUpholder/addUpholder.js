@@ -54,7 +54,7 @@ export default function AddUpholder(props){
                 //renderItem={renderItem}
             />
             <TouchableOpacity style = {styles.addBtn} onPress={addMenu}>
-                <Text style={styles.addSign}>+</Text>
+            <Image style = {{height:30,width:30}} source={require('../../assets/plus.png')}/>
             </TouchableOpacity>
 
             <Animated.View style={[styles.animatedView,{height: heightMenu}]}>

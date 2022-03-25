@@ -1,12 +1,15 @@
-import React,{useState} from 'react';
-import { Text,View,Image ,TouchableOpacity,StyleSheet} from 'react-native';
+import React,{useState,useRef} from 'react';
+import { Text,View,Image ,TouchableOpacity,StyleSheet,Animated,Easing} from 'react-native';
 import SegmentedControlTab from "react-native-segmented-control-tab";
+import RBSheet from "react-native-raw-bottom-sheet";
 import Input2 from './Input2';
+import AddCategory from '../addCategory/addCategory';
 
 
 export default function ExpenseIncome(props){
 
     const [paymentMode,setPaymentMode] = useState(0);
+    const refRBSheet = useRef();
 
     return (
         <View style={styles.container}>
@@ -30,10 +33,24 @@ export default function ExpenseIncome(props){
                 }}
                 />
             </View>
-            <TouchableOpacity style={styles.btn} onPress={props?.onPress}>
+            <TouchableOpacity style={styles.btn} onPress={() => refRBSheet.current.open()}>
                 <Text style = {styles.btnText} >Add</Text>
             </TouchableOpacity>
-            <View></View>
+
+            <RBSheet
+                ref={refRBSheet}
+                closeOnDragDown={true}
+                closeOnPressMask={true}
+                customStyles={{
+                  wrapper: {
+                    backgroundColor: "transparent"
+                  },
+                  draggableIcon: {
+                    backgroundColor: "#000"
+                  }
+                }}>
+                <AddCategory/>
+              </RBSheet>
         </View>
     );
 }
@@ -78,5 +95,6 @@ const styles = StyleSheet.create({
         color : 'white',
         fontSize : 20
     },
+
 
 });
