@@ -5,7 +5,7 @@ import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signi
 import Input from '../common/Input';
 import BackBtn from '../common/backBtn';
 import SocialBtn from '../common/socialBtn';
-import valid_email from '../common/validEmail';
+import valid_email from '../../utilities/validEmail';
 
 export default function Login(props){
 

@@ -4,7 +4,7 @@ import auth from '@react-native-firebase/auth';
 import Input from '../common/Input';
 import SocialBtn from '../common/socialBtn';
 import {GoogleSignin,statusCodes} from '@react-native-google-signin/google-signin';
-import valid_email from '../common/validEmail';
+import valid_email from '../../utilities/validEmail';
 
 export default function Login(props){
 

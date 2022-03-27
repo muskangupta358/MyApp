@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
 import HomeScreen from './src/components/homeScreen/homeScreen';
-import { AuthStack } from './AppNavigator';
+import { AuthStack,MainStack } from './AppNavigator';
 
 export default function App() {
 
@@ -55,6 +55,8 @@ export default function App() {
   // console.log('signed in :');
   // console.log(user.email);
   return (
-    <HomeScreen/>
+    <NavigationContainer>
+        <MainStack/>
+      </NavigationContainer>
   );
 }
