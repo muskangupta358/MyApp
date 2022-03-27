@@ -1,8 +1,10 @@
 import React,{useEffect,useState} from 'react';
 import { Text, View, StyleSheet ,Alert} from 'react-native';
+
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import { Provider } from 'react-redux';
 
 import HomeScreen from './src/components/homeScreen/homeScreen';
 import { AuthStack,MainStack } from './AppNavigator';
