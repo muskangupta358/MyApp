@@ -10,11 +10,10 @@ import HomeScreen from './src/components/homeScreen/homeScreen';
 import AddUpholder from './src/components/addUpholder/addUpholder';
 import AddEntry from './src/components/addEntry/addEntry';
 import EntryDetails from './src/components/entryDetails/entryDetails';
-import ExpenseIncome from './src/components/common/expenseIncome';
+import ExpenseIncome from './src/components/expenseIncome/expenseIncome';
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
-const Tab = createMaterialTopTabNavigator();
 
 function AuthStack(){
     return(    
@@ -23,9 +22,8 @@ function AuthStack(){
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       </Stack.Navigator>
-      );
-  }
-
+    );
+}
 
 function MainStack(){
   return(    
@@ -38,13 +36,5 @@ function MainStack(){
     );
 }
 
-function ExpenseIncome_Tab(){
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Expense" component={ExpenseIncome} />
-      <Tab.Screen name="Income" component={ExpenseIncome} />
-    </Tab.Navigator>
-  );
-}
 
-export {AuthStack,MainStack,ExpenseIncome_Tab};
+export {AuthStack,MainStack};

@@ -35,11 +35,15 @@ export default function AddEntry(props){
                 transparent={true}
                 visible={modalVisible}>
                     <TouchableOpacity style={styles.centeredView} onPress={()=>{setModalVisible(false)}}>
-                        <EditEntry/>
+                        <EditEntry onPress={()=>{
+                            setModalVisible(false);
+                            props.navigation.navigate('EntryDetails',{isEdit : true,pay : 1});
+
+                        }}/>
                     </TouchableOpacity>
             </Modal>
 
-            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('EntryDetails',{})}}>
+            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('EntryDetails',{isEdit : false})}}>
                 <Text style={styles.cashText}>Add Transaction</Text>
             </TouchableOpacity>
             

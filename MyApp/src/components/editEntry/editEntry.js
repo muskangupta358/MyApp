@@ -1,7 +1,7 @@
 import React,{} from 'react';
 import { Text, View,Image ,TouchableOpacity} from 'react-native';
 import styles from './editEntry.styles';
-import ExpenseIncome from '../common/expenseIncome';
+import ExpenseIncome from '../expenseIncome/expenseIncome';
 
 
 
@@ -22,7 +22,7 @@ export default function EditEntry(props){
                     <Text style={styles.text3}>Category : Rent</Text>
                 </View>
             </View>
-            <TouchableOpacity style={styles.editBtn} onPress={()=>{<ExpenseIncome/>}}>
+            <TouchableOpacity style={styles.editBtn} onPress={props?.onPress}> 
                 <Text style={styles.editBtntext}>Edit Entry</Text>
             </TouchableOpacity>
         </View>

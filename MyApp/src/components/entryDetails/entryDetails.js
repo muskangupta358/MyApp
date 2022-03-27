@@ -2,14 +2,16 @@ import React,{} from 'react';
 import { Text, View,Image ,TouchableOpacity,Button , SectionList} from 'react-native';
 import styles from './entryDetails.styles';
 import Header from '../common/header';
-import { ExpenseIncome_Tab } from '../../../AppNavigator';
+import ExpenseIncome from '../expenseIncome/expenseIncome';
 
 
 export default function EntryDetails(props){
+    const isEdit = props.route.params['isEdit'];
+    const pay = props?.route?.params?.pay;
     return (
         <View style={styles.container}>
             <Header text={'Entry details'} style={{backgroundColor:'white'}} onClick={() => props.navigation.goBack()}/>
-            <ExpenseIncome_Tab/>
+            <ExpenseIncome pay={pay} isEdit={isEdit}/>
         </View>
     );
 }
