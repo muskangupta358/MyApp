@@ -8,11 +8,11 @@ export default function FlatBtn(props){
     return (
         <TouchableOpacity style={styles.main} onPress={props?.onPress}>
             <Image style = {styles.image} source={require('../../assets/moneyIcon.png')}/>
-            <Text style = {styles.heading} >Upholder 1</Text>
+            <Text style = {styles.heading}>{props?.text || 'Upholder'}</Text>
             <TouchableOpacity style = {{position:'relative'}} onPress={()=>{setShow(!show)}}>
             <Image style = {styles.menuImage} source={require('../../assets/menuColored.png')}/>
             {show && <View style = {[styles.subView,styles.shadow]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props?.delete}>
                     <Text>Delete</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>

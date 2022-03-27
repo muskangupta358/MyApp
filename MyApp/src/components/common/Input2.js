@@ -4,7 +4,7 @@ import { Text, View, StyleSheet,TextInput } from 'react-native';
 export default function Input2(props){
   return (
     <View>
-        <TextInput style={[styles.input,styles.shadow,props?.style]} placeholder={props?.text} placeholderTextColor="#2596be" autoCapitalize="none" onPressIn={props?.onPressIn} />
+        <TextInput style={[styles.input,styles.shadow,props?.style]} placeholder={props?.text} placeholderTextColor="#2596be" autoCapitalize="none" onPressIn={props?.onPressIn} value={props?.value} onChangeText={props?.onChangeText}/>
     </View>
   );
 }
