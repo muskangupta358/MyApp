@@ -12,9 +12,11 @@ function AddUpholder(props){
 
     const [heightMenu,setHeightMenu] = useState(new Animated.Value(0));
     const [upholderName, setUpholderName] = useState('');
+    const [search, setSearch] = useState();
+    let filtered_data = search ?  props.data.filter(obj => obj.upholderName.startsWith(search)) : props.data;
 
-    const renderItem = ({ item }) => (
-        <FlatBtn text={item.upholderName} delete={()=>{props.del(props.data.indexOf(item))}} onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, index : props.data.indexOf(item)})}}></FlatBtn>
+    const renderItem = ({ item,index }) => (
+        <FlatBtn text={item.upholderName} delete={()=>{props.del(item.upholderId)}} onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, id : item.upholderId})}}></FlatBtn>
     );
 
     const addMenu = () =>{
@@ -38,11 +40,23 @@ function AddUpholder(props){
         setUpholderName(data)
     }
 
+    const net_balance = () => {
+        let sum = 0;
+        props.data.forEach(function (arrayItem) {
+            sum = sum + arrayItem.balance
+        });
+        return sum;
+    }
+
+    const search_upholder = (data) => {
+        setSearch(data)
+    }
+    
     return (
         <View style={styles.container}>
             <View style = {[styles.introView,styles.shadow]}>
                 <View style = {styles.subView}>
-                    <Text style = {styles.textMoney}>₹4500</Text>
+                    <Text style = {styles.textMoney}>₹{net_balance()}</Text>
                     <Text style={styles.textSmall}>Total Available Balance</Text>
                 </View>
                 <View style = {styles.subView}>
@@ -53,12 +67,14 @@ function AddUpholder(props){
                 </View>
             </View>
 
-            <TextInput style={[styles.search,styles.shadow]} placeholder='🔍 Search by upholder name' placeholderTextColor="#2596be" autoCapitalize="none" />
+            <TextInput style={[styles.search,styles.shadow]} placeholder='🔍 Search by upholder name' placeholderTextColor="#2596be" autoCapitalize="none" 
+            onChangeText={search_upholder} value={search}/>
 
             <FlatList 
                 style = {styles.upholderView}
-                data={props.data}
+                data={filtered_data}
                 renderItem={renderItem}
+                extraData={search}
             />
             <TouchableOpacity style = {styles.addBtn} onPress={addMenu}>
             <Image style = {{height:30,width:30}} source={require('../../assets/plus.png')}/>
@@ -75,10 +91,11 @@ function AddUpholder(props){
                 <TouchableOpacity style = {[styles.saveBtn,styles.shadow]} onPress={() => {
                         props.add({
                             upholderName:upholderName,
+                            upholderId : new Date().getTime(),
                             balance : 0,
                             totalin : 0 ,
                             totalout : 0 ,
-                            details : []
+                            details : [],
                         });
                         setUpholderName('')
                         cancelMenu();
