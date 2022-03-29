@@ -47,6 +47,14 @@ function AddEntry(props){
             data : obj[key]
         }]
     }
+    sectionData.sort(function(a, b) {
+        var keyA = new Date(a.title),
+        keyB = new Date(b.title);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
 
     return (
         <View style = {styles.container}>
@@ -56,19 +64,20 @@ function AddEntry(props){
                 <Text style={styles.mainText}>₹{props.data[index].balance}</Text>
                 <View style={[styles.balanceSubiew,styles.shadow]}>
                     <View style={[styles.balanceSubiew2,{borderRightWidth : 1,borderRightColor : 'white',}]}>
-                        <Text style={styles.subtext1}>Total In +</Text>
+                        <Text style={styles.subtext1}>Total In+</Text>
                         <Text style={[styles.subtext2,/*{fontSize : length > 4 ? 10 : 20}*/]}>₹{props.data[index].totalin}</Text>
                     </View>
                     <View style={styles.balanceSubiew2}>
-                        <Text style={styles.subtext1}>Total Out -</Text>
+                        <Text style={styles.subtext1}>Total Out-</Text>
                         <Text style={styles.subtext2}>₹{props.data[index].totalout}</Text>
                     </View>
                 </View>
             </View>
             <Text style={styles.tranText}>Transactions</Text>
-            <SectionList
+            <SectionList contentContainerStyle={styles.contentContainer}
                 sections={sectionData}
                 renderItem={renderItem}
+                stickySectionHeadersEnabled = {false}
                 renderSectionHeader={({ section: { title } }) => (
                     <Text style={styles.sectionHeader}>{title}</Text>
             )}
@@ -80,13 +89,13 @@ function AddEntry(props){
                     <TouchableOpacity style={styles.centeredView} onPress={()=>{setModalVisible(false)}}>
                         <EditEntry onPress={()=>{
                             setModalVisible(false);
-                            props.navigation.navigate('EntryDetails',{isEdit : true,transactionId:currentTransactionId,index:index});
+                            props.navigation.navigate('ExpenseIncome',{isEdit : true,transactionId:currentTransactionId,index:index});
                         }} transactionId ={currentTransactionId} index = {index}
                         />
                     </TouchableOpacity>
             </Modal>
 
-            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('EntryDetails',{isEdit : false,index : index})}}>
+            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('ExpenseIncome',{isEdit : false,index : index})}}>
                 <Text style={styles.cashText}>Add Transaction</Text>
             </TouchableOpacity>
             

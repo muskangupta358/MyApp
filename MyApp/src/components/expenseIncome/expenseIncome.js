@@ -6,6 +6,7 @@ import Input2 from '../common/Input2';
 import AddCategory from '../addCategory/addCategory';
 import DatePicker from 'react-native-date-picker'
 import styles from './expenseIncome.styles';
+import Header from '../common/header';
 
 import { connect } from 'react-redux';
 import {add,edit,del,add_details,edit_details,del_details} from '../../redux/actions'
@@ -13,8 +14,11 @@ import {add,edit,del,add_details,edit_details,del_details} from '../../redux/act
 
 function ExpenseIncome(props){
 
-    const index = props?.index;
-    const transactionIndex = props.data[index].details.findIndex(item => item.transactionId === props?.transactionId);
+    const isEdit = props.route.params['isEdit'];
+    const index = props?.route?.params['index'];
+    const transactionId = props?.route?.params['transactionId'];
+
+    const transactionIndex = props.data[index].details.findIndex(item => item.transactionId === transactionId);
     const transactionData = props.data[index].details[transactionIndex];
 
     const [amount,setAmount] = useState(0);
@@ -46,7 +50,8 @@ function ExpenseIncome(props){
 
     return (
         <View style={styles.container}>
-            {!props?.isEdit && <SegmentedControlTab
+          <Header text={isEdit ? 'Edit Transaction' : 'Add Transaction'} style={{backgroundColor:'white'}} onClick={() => props.navigation.goBack()}/>
+            {!isEdit && <SegmentedControlTab
                 tabsContainerStyle={styles.tabsContainerStyle2}
                 tabStyle={styles.tabStyle}
                 tabTextStyle={styles.tabTextStyle2}
@@ -75,7 +80,7 @@ function ExpenseIncome(props){
                     setPaymentMode(index);
               }}/>
             </View>
-            { !props?.isEdit && 
+            { !isEdit && 
             <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {
               if(amount === 0){
                 Alert.alert('Please Enter Amount')
@@ -96,17 +101,17 @@ function ExpenseIncome(props){
                   paymentMode : paymentMode === 0 ? 'Cash' : 'Online',
                   paymentType : paymentType === 0 ? 'Income' : 'Expense',
                 });
-                //props.navigation.goBack();
+                props.navigation.goBack();
               }
               
             }}>
                 <Text style = {[styles.btnText]} >{ type ? '+  Cash In ' : '-  Cash Out'}</Text>
             </TouchableOpacity>}
             {
-              props?.isEdit && 
+              isEdit && 
               <View>
-                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.edit_details(index,props?.transactionId,{
-                  transactionId : props?.transactionId,
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.edit_details(index,transactionId,{
+                  transactionId : transactionId,
                   amount : amount,
                   remark : remark,
                   category : category,
@@ -114,11 +119,12 @@ function ExpenseIncome(props){
                   paymentMode : paymentMode === 0 ? 'Cash' : 'Online',
                   paymentType : paymentType === 0 ? 'Income' : 'Expense',
                 })
+                props.navigation.goBack();
                 }} >
                   <Text style = {[styles.btnText]} >Edit</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.del_details(index,props?.transactionId)}} >
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.del_details(index,transactionId);props.navigation.goBack();}} >
                   <Text style = {[styles.btnText]} >Delete</Text>
                 </TouchableOpacity>
               </View>

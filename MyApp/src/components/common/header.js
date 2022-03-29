@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet,TouchableOpacity,Image } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,Image ,Platform} from 'react-native';
 
 export default function Header(props){
   return (
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     title : {
         fontSize : 30,
-        marginTop : 50,
+        marginTop : Platform.OS == 'ios' ? 50 : 0,
         margin : 30,
     },
 

@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import { Provider } from 'react-redux';
 import { store,persistor } from './src/redux/store';
+import SplashScreen from 'react-native-splash-screen';
 
 import HomeScreen from './src/components/homeScreen/homeScreen';
 import { AuthStack,MainStack } from './AppNavigator';
@@ -21,6 +22,10 @@ export default function App() {
   }
  
   useEffect(() => {
+
+    //********************** Splash Screen *****************/
+    SplashScreen.hide();
+
     // **************** Generate Token *******************
     messaging().getToken().then((response)=> {
       //console.log(response);

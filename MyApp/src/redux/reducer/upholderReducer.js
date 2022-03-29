@@ -21,16 +21,16 @@ const upholderReducer = (state=initialState,action) => {
         case editDetails : {
             const transactionIndex = state.data[action.payload.i].details.findIndex(item => item.transactionId === action.payload.id );
             const newDetails = state.data[action.payload.i].details.map((obj, index) => index === transactionIndex ? action.payload.temp : obj );
-            const newState =  {...state};
-            newState.data[action.payload.i].details = newDetails;
-            return newState;
+            const newData =  [...state.data];
+            newData[action.payload.i].details = newDetails;
+            return {...state, data : newData};
         }
         case deleteDetails : {
             const transactionIndex = state.data[action.payload.i].details.findIndex(item => item.transactionId === action.payload.id );
             const newDetails = state.data[action.payload.i].details.filter((obj, index) => index !== transactionIndex);
-            const newState =  {...state};
-            newState.data[action.payload.i].details = newDetails;
-            return newState;
+            const newData =  [...state.data];
+            newData[action.payload.i].details = newDetails;
+            return {...state, data : newData};
         }
         default : return state
     }

@@ -7,8 +7,6 @@ import DisplayText from '../common/displayText';
 
 export default function HomeScreen(props){
 
-    const [user, setUser] = useState();
-
     const out = () =>{
         auth()
         .signOut()
@@ -22,19 +20,9 @@ export default function HomeScreen(props){
             });
         })
     }
-
-    useEffect(()=>{
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber;
-    },[])
-
-    function onAuthStateChanged(user) {
-        setUser(user);
-        console.log(user);
-      }
     return (
         <View style={{flex : 1,justifyContent:"center",alignItems:'center'}}>
-            <DisplayText title={'Welcome'} description={'Welcome to '+{user}} error={false} />
+            <DisplayText title={'Welcome'} description={'Welcome to homescreen '} error={false} />
             <Button title='Signout' onPress={()=>{out()}}></Button>
             <Button title='Go' onPress={()=>{props.navigation.navigate('AddUpholder',{})}}></Button>
         </View>

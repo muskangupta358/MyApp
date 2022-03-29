@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Platform} from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     },
     /* ---------------------------------- */
     balanceView : {
-      height : 230,
+      height : 250,
       borderRadius : 30,
       backgroundColor : '#2596be',
       marginTop : 10,
@@ -82,23 +82,27 @@ const styles = StyleSheet.create({
     color : 'white',
     fontSize : 20
   },
-  
-  shadow : {
+
+  shadow : Platform.OS == 'ios' ? {
     shadowColor: 'black',
-    elevation: 5,        
+    elevation: 2,        
     shadowOpacity: 0.5,
     shadowRadius: 2,
     shadowOffset: {
         height: 1,
-        width: 1
-    } 
-    },
+        width : 1,
+    }
+    } : {},
+    
     centeredView: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor:'rgba(0,0,0,0.4)',
     },
+    contentContainer : {
+      paddingBottom : 100
+    }
 
 });
 
