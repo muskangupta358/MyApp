@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
     padding : 10,
     backgroundColor : '#e1e2e3',
   },
+  sectionHeader : {
+    fontSize : 15,
+    padding : 10,
+    backgroundColor : '#e1e2e3',
+  },
 
   cashin : {
 

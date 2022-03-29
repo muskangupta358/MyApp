@@ -11,25 +11,42 @@ import {add,edit,del,add_details,edit_details,del_details} from '../../redux/act
 
 function AddEntry(props){
 
-    const sectionData = props.data.map((obj,index) => {
-        return {
-            title : obj.details.date ,
-            data : obj.details,
-        }
-    })
-
-    console.log(sectionData)
 
     const [modalVisible,setModalVisible] = useState(false);
+    const [currentTransactionId,setCurrentTransactionId] = useState();
+
     const id = props.route.params['id'];
     const index = props.data.findIndex(item => item.upholderId === id);
-    console.log(props.data)
 
     const renderItem = ({ item,index }) => {
         return (
-            <ShowEntry onPress={() => {setModalVisible(true)}} />
+            <ShowEntry data={item} onPress={() => {
+                setModalVisible(true);
+                setCurrentTransactionId(item.transactionId);
+            }} />
         );
     };
+
+     function groupBy(objectArray, property) {
+        return objectArray.reduce((acc, obj) => {
+           const key = new Date(obj[property]).toDateString();
+           if (!acc[key]) {
+              acc[key] = [];
+           }
+           acc[key].push(obj);
+           return acc;
+        }, {});
+     }
+
+    const obj = groupBy(props.data[index].details, 'date')
+    let sectionData = [];
+    for(let key in obj)
+    {
+        sectionData = [...sectionData,{
+            title : key,
+            data : obj[key]
+        }]
+    }
 
     return (
         <View style = {styles.container}>
@@ -49,12 +66,11 @@ function AddEntry(props){
                 </View>
             </View>
             <Text style={styles.tranText}>Transactions</Text>
-            <ShowEntry onPress={() => {setModalVisible(true)}} />
             <SectionList
-            sections={sectionData}
-            renderItem={renderItem}
-            renderSectionHeader={({ section: { title } }) => (
-                <Text>{title}</Text>
+                sections={sectionData}
+                renderItem={renderItem}
+                renderSectionHeader={({ section: { title } }) => (
+                    <Text style={styles.sectionHeader}>{title}</Text>
             )}
             />  
             <Modal
@@ -64,9 +80,9 @@ function AddEntry(props){
                     <TouchableOpacity style={styles.centeredView} onPress={()=>{setModalVisible(false)}}>
                         <EditEntry onPress={()=>{
                             setModalVisible(false);
-                            props.navigation.navigate('EntryDetails',{isEdit : true,pay : 1});
-
-                        }}/>
+                            props.navigation.navigate('EntryDetails',{isEdit : true,transactionId:currentTransactionId,index:index});
+                        }} transactionId ={currentTransactionId} index = {index}
+                        />
                     </TouchableOpacity>
             </Modal>
 

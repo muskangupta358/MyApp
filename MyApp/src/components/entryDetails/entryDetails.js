@@ -7,12 +7,12 @@ import ExpenseIncome from '../expenseIncome/expenseIncome';
 
 export default function EntryDetails(props){
     const isEdit = props.route.params['isEdit'];
-    const index = props.route.params['index']
-    const pay = props?.route?.params?.pay;
+    const index = props?.route?.params['index'];
+    const transactionId = props?.route?.params['transactionId'];
     return (
         <View style={styles.container}>
-            <Header text={'Entry details'} style={{backgroundColor:'white'}} onClick={() => props.navigation.goBack()}/>
-            <ExpenseIncome pay={pay} isEdit={isEdit} index={index}/>
+            <Header text={isEdit ? 'Edit Transaction' : 'Add Transaction'} style={{backgroundColor:'white'}} onClick={() => props.navigation.goBack()}/>
+            <ExpenseIncome isEdit={isEdit} index={index} transactionId={transactionId}/>
         </View>
     );
 }

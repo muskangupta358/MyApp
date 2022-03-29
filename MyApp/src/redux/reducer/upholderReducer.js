@@ -19,15 +19,15 @@ const upholderReducer = (state=initialState,action) => {
             return {...state, data : state.data.map((obj, index) => index == action.payload.i ? {...obj, details: [...state.data[index].details ,action.payload.temp]} : obj)} 
         }
         case editDetails : {
-            const indexTemp = props.data.findIndex(item => item.upholderId === action.payload.id);
-            const newDetails = state.data[action.payload.i].details.map((obj, index) => index === indexTemp ? action.payload.temp : obj );
+            const transactionIndex = state.data[action.payload.i].details.findIndex(item => item.transactionId === action.payload.id );
+            const newDetails = state.data[action.payload.i].details.map((obj, index) => index === transactionIndex ? action.payload.temp : obj );
             const newState =  {...state};
             newState.data[action.payload.i].details = newDetails;
             return newState;
         }
         case deleteDetails : {
-            const indexTemp = props.data.findIndex(item => item.upholderId === action.payload.id);
-            const newDetails = state.data[action.payload.i].details.filter((obj, index) => index !== indexTemp);
+            const transactionIndex = state.data[action.payload.i].details.findIndex(item => item.transactionId === action.payload.id );
+            const newDetails = state.data[action.payload.i].details.filter((obj, index) => index !== transactionIndex);
             const newState =  {...state};
             newState.data[action.payload.i].details = newDetails;
             return newState;

@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react';
+import React,{useState,useRef, useEffect} from 'react';
 import { Text,View,Image ,TouchableOpacity,StyleSheet,Animated,Easing, Alert} from 'react-native';
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -13,6 +13,10 @@ import {add,edit,del,add_details,edit_details,del_details} from '../../redux/act
 
 function ExpenseIncome(props){
 
+    const index = props?.index;
+    const transactionIndex = props.data[index].details.findIndex(item => item.transactionId === props?.transactionId);
+    const transactionData = props.data[index].details[transactionIndex];
+
     const [amount,setAmount] = useState(0);
     const [remark,setRemark] = useState('');
     const [date, setDate] = useState(new Date())
@@ -20,10 +24,21 @@ function ExpenseIncome(props){
     const [paymentMode,setPaymentMode] = useState(0);
     const [paymentType,setPaymentType] = useState(0);
 
+    useEffect(()=>{
+        if (transactionData){
+          setAmount(transactionData.amount)
+          setRemark(transactionData.remark)
+          setDate(new Date(transactionData.date))
+          setCategory(transactionData.category)
+          setPaymentMode(transactionData.paymentMode === 'Cash' ? 0 : 1)
+          setPaymentType(transactionData.paymentType === 'Income' ? 0 : 1)
+        }
+      },[])
+    
     const refRBSheet = useRef();
     const [open, setOpen] = useState(false);
-    const type = props?.isEdit ? (props?.pay === 0 ? true : false) : (paymentType === 0 ? true : false);
-    const index = props?.index
+    const type = paymentType === 0 ? true : false;
+    
 
     const pull_category = (data) => {
       setCategory(data)
@@ -60,6 +75,7 @@ function ExpenseIncome(props){
                     setPaymentMode(index);
               }}/>
             </View>
+            { !props?.isEdit && 
             <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {
               if(amount === 0){
                 Alert.alert('Please Enter Amount')
@@ -80,11 +96,34 @@ function ExpenseIncome(props){
                   paymentMode : paymentMode === 0 ? 'Cash' : 'Online',
                   paymentType : paymentType === 0 ? 'Income' : 'Expense',
                 });
+                //props.navigation.goBack();
               }
               
             }}>
-                <Text style = {[styles.btnText]} >{type ? '+  Cash In ' : '-  Cash Out'}</Text>
-            </TouchableOpacity>
+                <Text style = {[styles.btnText]} >{ type ? '+  Cash In ' : '-  Cash Out'}</Text>
+            </TouchableOpacity>}
+            {
+              props?.isEdit && 
+              <View>
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.edit_details(index,props?.transactionId,{
+                  transactionId : props?.transactionId,
+                  amount : amount,
+                  remark : remark,
+                  category : category,
+                  date : date.toISOString(),
+                  paymentMode : paymentMode === 0 ? 'Cash' : 'Online',
+                  paymentType : paymentType === 0 ? 'Income' : 'Expense',
+                })
+                }} >
+                  <Text style = {[styles.btnText]} >Edit</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.del_details(index,props?.transactionId)}} >
+                  <Text style = {[styles.btnText]} >Delete</Text>
+                </TouchableOpacity>
+              </View>
+
+            }
 
             <DatePicker
               modal
