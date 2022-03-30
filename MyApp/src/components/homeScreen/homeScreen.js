@@ -17,7 +17,7 @@ export default function HomeScreen(props){
             GoogleSignin.signOut()
             .then(()=>{
             console.log('Google logged out');
-            });
+            }).catch((error)=>{console.log(error)});
         })
     }
     return (

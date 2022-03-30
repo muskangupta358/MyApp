@@ -60,7 +60,7 @@ function AddUpholder(props){
                     <Text style={styles.textSmall}>Total Available Balance</Text>
                 </View>
                 <View style = {styles.subView}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{props.navigation.navigate('Profile',{})}}>
                         <Image style = {styles.profileImg} source={require('../../assets/profile.jpg')}/>
                     </TouchableOpacity>
                     <Text style={styles.textSmall}>Muskan Gupta</Text>
