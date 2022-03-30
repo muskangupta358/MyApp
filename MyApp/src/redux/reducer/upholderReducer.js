@@ -10,7 +10,10 @@ const upholderReducer = (state=initialState,action) => {
             return {...state, data : [...state.data,action.payload]};
         }
         case editUpholder : {
-            return {...state, data : state.data.map(obj => obj.upholderId === action.payload.i ? action.payload.temp : obj)} 
+            console.log(action.payloads);
+            return {...state, data : state.data.map(obj =>{
+                return obj.upholderId === action.payload.i ? {...obj,...action.payload.temp} : obj
+            })}
         }
         case deleteUpholder :{
             return {...state, data : state.data.filter(obj => obj.upholderId !== action.payload)} ;
@@ -36,5 +39,6 @@ const upholderReducer = (state=initialState,action) => {
     }
 
 };
+
 
 export default upholderReducer;

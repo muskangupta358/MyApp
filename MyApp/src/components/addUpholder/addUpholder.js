@@ -16,7 +16,7 @@ function AddUpholder(props){
     let filtered_data = search ?  props.data.filter(obj => obj.upholderName.startsWith(search)) : props.data;
 
     const renderItem = ({ item,index }) => (
-        <FlatBtn text={item.upholderName} delete={()=>{props.del(item.upholderId)}} onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, id : item.upholderId})}}></FlatBtn>
+        <FlatBtn text={item.upholderName} delete={()=>{props.del(item.upholderId)}} edit={()=>{}} onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, id : item.upholderId})}}></FlatBtn>
     );
 
     const addMenu = () =>{
@@ -60,7 +60,7 @@ function AddUpholder(props){
                     <Text style={styles.textSmall}>Total Available Balance</Text>
                 </View>
                 <View style = {styles.subView}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{props.navigation.navigate('Profile',{})}}>
                         <Image style = {styles.profileImg} source={require('../../assets/profile.jpg')}/>
                     </TouchableOpacity>
                     <Text style={styles.textSmall}>Muskan Gupta</Text>
@@ -77,7 +77,7 @@ function AddUpholder(props){
                 extraData={search}
             />
             <TouchableOpacity style = {styles.addBtn} onPress={addMenu}>
-            <Image style = {{height:30,width:30}} source={require('../../assets/plus.png')}/>
+                <Image style = {{height:30,width:30}} source={require('../../assets/plus.png')}/>
             </TouchableOpacity>
 
             <Animated.View style={[styles.animatedView,{height: heightMenu}]}>

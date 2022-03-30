@@ -1,22 +1,48 @@
-import React,{useState} from 'react';
-import { Text, View,Image ,TouchableOpacity,Button , SectionList,Modal} from 'react-native';
+import React,{useState,useEffect} from 'react';
+import { Text, View,Image ,TouchableOpacity,Button,SectionList,Modal} from 'react-native';
 import styles from './addEntry.styles';
 import Header from '../common/header';
 import ShowEntry from '../common/showEntry';
 import EditEntry from '../editEntry/editEntry';
+import { useFocusEffect } from '@react-navigation/native';
 
-
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {add,edit,del,add_details,edit_details,del_details} from '../../redux/actions'
 
 function AddEntry(props){
 
-
     const [modalVisible,setModalVisible] = useState(false);
     const [currentTransactionId,setCurrentTransactionId] = useState();
+    const [sectionData,setSectionData] = useState([]);
 
     const id = props.route.params['id'];
     const index = props.data.findIndex(item => item.upholderId === id);
+
+    useFocusEffect(()=>{
+        const result = sum();
+        props.edit(id,{totalin : result.sumIncome,totalout : result.sumExpense})
+    })
+
+    useEffect(()=>{
+        const obj = groupBy(props.data[index].details, 'date')
+        let sectionDataTemp = [];
+        for(let key in obj)
+        {
+            sectionDataTemp = [...sectionDataTemp,{
+                title : key,
+                data : obj[key]
+            }]
+        }
+        sectionDataTemp.sort(function(a, b) {
+            var keyA = new Date(a.title),
+            keyB = new Date(b.title);
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+        setSectionData(sectionDataTemp);
+    },[props.data])
 
     const renderItem = ({ item,index }) => {
         return (
@@ -37,25 +63,24 @@ function AddEntry(props){
            return acc;
         }, {});
      }
-
-    const obj = groupBy(props.data[index].details, 'date')
-    let sectionData = [];
-    for(let key in obj)
-    {
-        sectionData = [...sectionData,{
-            title : key,
-            data : obj[key]
-        }]
+    
+    const sum = () => {
+        let sumIncome = 0;
+        let sumExpense = 0;
+        props.data.forEach((item)=>{
+            item.details.forEach((subitem)=>{
+                if(subitem.paymentType == 'Income')
+                {
+                    sumIncome = sumIncome + Number(subitem.amount);
+                }
+                else
+                {
+                    sumExpense = sumExpense + Number(subitem.amount);
+                }
+            })
+        })
+        return {sumIncome,sumExpense};
     }
-    sectionData.sort(function(a, b) {
-        var keyA = new Date(a.title),
-        keyB = new Date(b.title);
-        // Compare the 2 dates
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-
     return (
         <View style = {styles.container}>
             <Header text={props.route.params['upholder']} onClick={() => props.navigation.goBack()}/>
@@ -80,8 +105,7 @@ function AddEntry(props){
                 stickySectionHeadersEnabled = {false}
                 renderSectionHeader={({ section: { title } }) => (
                     <Text style={styles.sectionHeader}>{title}</Text>
-            )}
-            />  
+            )}/>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -89,13 +113,13 @@ function AddEntry(props){
                     <TouchableOpacity style={styles.centeredView} onPress={()=>{setModalVisible(false)}}>
                         <EditEntry onPress={()=>{
                             setModalVisible(false);
-                            props.navigation.navigate('ExpenseIncome',{isEdit : true,transactionId:currentTransactionId,index:index});
-                        }} transactionId ={currentTransactionId} index = {index}
+                            props.navigation.navigate('ExpenseIncome',{isEdit : true,transactionId:currentTransactionId,index:index,sum:sum});}}  
+                            transactionId ={currentTransactionId} index = {index} 
                         />
                     </TouchableOpacity>
             </Modal>
 
-            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('ExpenseIncome',{isEdit : false,index : index})}}>
+            <TouchableOpacity style={[styles.cashin,styles.shadow]} onPress={()=>{props.navigation.navigate('ExpenseIncome',{isEdit : false,index : index,sum:sum})}}>
                 <Text style={styles.cashText}>Add Transaction</Text>
             </TouchableOpacity>
             

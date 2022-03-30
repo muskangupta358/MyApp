@@ -1,4 +1,4 @@
-import { addUpholder,editUpholder,deleteUpholder,addDetails,editDetails,deleteDetails } from "./actionType";
+import { addUpholder,editUpholder,deleteUpholder,addDetails,editDetails,deleteDetails,userDetails } from "./actionType";
 
 export const add = (temp) => ({
 type : addUpholder,
@@ -28,4 +28,9 @@ export const edit_details = (i,id,temp) => ({
 export const del_details = (i,id) => ({
     type : deleteDetails,
     payload : {i,id},
+});
+
+export const useDetails = (newUser) => ({
+    type : useDetails,
+    payload : newUser,
 });

@@ -15,7 +15,7 @@ export default function FlatBtn(props){
                 <TouchableOpacity onPress={props?.delete}>
                     <Text>Delete</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props?.edit}>
                     <Text>Rename</Text>
                 </TouchableOpacity>
             </View>}

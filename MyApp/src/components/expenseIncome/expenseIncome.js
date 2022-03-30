@@ -16,6 +16,7 @@ function ExpenseIncome(props){
 
     const isEdit = props.route.params['isEdit'];
     const index = props?.route?.params['index'];
+    const sum = props?.route?.params['sum'];
     const transactionId = props?.route?.params['transactionId'];
 
     const transactionIndex = props.data[index].details.findIndex(item => item.transactionId === transactionId);
@@ -124,7 +125,9 @@ function ExpenseIncome(props){
                   <Text style = {[styles.btnText]} >Edit</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.del_details(index,transactionId);props.navigation.goBack();}} >
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {
+                  props.del_details(index,transactionId);
+                  props.navigation.goBack();}} >
                   <Text style = {[styles.btnText]} >Delete</Text>
                 </TouchableOpacity>
               </View>

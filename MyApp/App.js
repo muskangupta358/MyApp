@@ -8,8 +8,10 @@ import { Provider } from 'react-redux';
 import { store,persistor } from './src/redux/store';
 import SplashScreen from 'react-native-splash-screen';
 
-import HomeScreen from './src/components/homeScreen/homeScreen';
 import { AuthStack,MainStack } from './AppNavigator';
+
+import { connect } from 'react-redux';
+import { userDetails } from './src/redux/actionType';
 
 export default function App() {
 
@@ -18,8 +20,16 @@ export default function App() {
 
   function onAuthStateChanged(user) {
     setUser(user);
+    // props.userDetails(user);
+    // console.log(props.user)
     if (initializing) setInitializing(false);
   }
+
+  useEffect(()=>{
+    persistor(()=>{
+      const user = store.getState().userReducer
+    });
+  },[])
  
   useEffect(() => {
 
@@ -73,3 +83,22 @@ export default function App() {
     </Provider>
   );
 }
+
+
+
+// const mapStateToProps = (state) => {
+//   return {
+//     user : state.userReducer.user
+//   };
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//       userDetails : (newUser) => dispatch(userDetails(newUser)),
+//   };
+// }
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App)

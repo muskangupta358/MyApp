@@ -5,12 +5,12 @@ import  AsyncStorage  from '@react-native-async-storage/async-storage';
 
 const persistConfig = {
     key: 'root',
-    whitelist: ['upholderReducer'],
+    whitelist: ['upholderReducer','userReducer'],
     storage : AsyncStorage,
   }
    
 const persistedReducer = persistReducer(persistConfig, reducer)
 let store = createStore(persistedReducer)
-let persistor = persistStore(store)
+let persistor = callBack => persistStore(store);
 
 export {store,persistor};
