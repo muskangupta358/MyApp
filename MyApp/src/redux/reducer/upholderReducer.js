@@ -10,7 +10,7 @@ const upholderReducer = (state=initialState,action) => {
             return {...state, data : [...state.data,action.payload]};
         }
         case editUpholder : {
-            console.log(action.payload)
+            //console.log(action.payload)
             return {...state, data : state.data.map(obj => obj.upholderId === action.payload.i ? {...obj,...action.payload.temp} : obj)}
         }
         case deleteUpholder :{
@@ -23,6 +23,11 @@ const upholderReducer = (state=initialState,action) => {
             const transactionIndex = state.data[action.payload.i].details.findIndex(item => item.transactionId === action.payload.id );
             const newDetails = state.data[action.payload.i].details.map((obj, index) => index === transactionIndex ? action.payload.temp : obj );
             const newData =  [...state.data];
+            //console.log(newData[action.payload.i].totalin,newData[action.payload.i].details[transactionIndex].amount,newDetails[transactionIndex].amount)
+            newData[action.payload.i].details[transactionIndex].paymentType === 'Income' ?
+            newData[action.payload.i].totalin = newData[action.payload.i].totalin - Number(newData[action.payload.i].details[transactionIndex].amount) + Number(newDetails[transactionIndex].amount): 
+            newData[action.payload.i].totalout = newData[action.payload.i].totalout - Number(newData[action.payload.i].details[transactionIndex].amount) + Number(newDetails[transactionIndex].amount);
+            newData[action.payload.i].balance = newData[action.payload.i].totalin - newData[action.payload.i].totalout ;
             newData[action.payload.i].details = newDetails;
             return {...state, data : newData};
         }

@@ -4,7 +4,6 @@ import styles from './addEntry.styles';
 import Header from '../common/header';
 import ShowEntry from '../common/showEntry';
 import EditEntry from '../editEntry/editEntry';
-import { useFocusEffect } from '@react-navigation/native';
 
 import { connect } from 'react-redux';
 import {add,edit,del,add_details,edit_details,del_details} from '../../redux/actions'
@@ -14,22 +13,16 @@ function AddEntry(props){
     const [modalVisible,setModalVisible] = useState(false);
     const [currentTransactionId,setCurrentTransactionId] = useState();
     const [sectionData,setSectionData] = useState([])
-    const [dependent,setDependent] = useState([])
 
     const id = props.route.params['id'];
     const index = props.data.findIndex(item => item.upholderId === id);
 
-    // useFocusEffect(()=>{
-    //     const result = sum();
-    //     //props.edit(id,{totalin : result.sumIncome,totalout : result.sumExpense})
-    //     //props.edit(id,{balance : props.data[index].totalin - props.data[index].totalout })
-    // })
+    console.log(id,index,props.data[index])
 
     useEffect(()=>{
         const result = sum();
-        //props.edit(id,{totalin : result.sumIncome,totalout : result.sumExpense})
-        //props.edit(id,{balance : props.data[index].totalin - props.data[index].totalout })
-    },[])
+        props.edit(id,{totalin : result.sumIncome,totalout : result.sumExpense , balance : result.sumIncome-result.sumExpense})
+    },[props.data[index].details.length])
 
     useEffect(()=>{
         const obj = groupBy(props.data[index].details, 'date')
@@ -75,14 +68,12 @@ function AddEntry(props){
     const sum = () => {
         let sumIncome = 0;
         let sumExpense = 0;
-        props.data.forEach((item)=>{
-            item.details.forEach((subitem)=>{
+            props.data[index].details.forEach((subitem)=>{
                 if(subitem.paymentType == 'Income'){
                     sumIncome = sumIncome + Number(subitem.amount);}
                 else{
                     sumExpense = sumExpense + Number(subitem.amount);}
             })
-        })
         return {sumIncome,sumExpense};
     }
 
