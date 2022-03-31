@@ -13,10 +13,18 @@ function AddUpholder(props){
     const [heightMenu,setHeightMenu] = useState(new Animated.Value(0));
     const [upholderName, setUpholderName] = useState('');
     const [search, setSearch] = useState();
+    const [isRename, setIsRename] = useState(false);
+    const [RenameId, setRenameId] = useState(false);
     let filtered_data = search ?  props.data.filter(obj => obj.upholderName.startsWith(search)) : props.data;
 
     const renderItem = ({ item,index }) => (
-        <FlatBtn text={item.upholderName} delete={()=>{props.del(item.upholderId)}} onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, id : item.upholderId})}}></FlatBtn>
+        <FlatBtn text={item.upholderName} 
+        delete={()=>{props.del(item.upholderId)}} 
+        rename={()=>{addMenu();
+            setIsRename(true);
+            setRenameId(item.upholderId)
+        }} 
+        onPress={()=>{props.navigation.navigate('AddEntry',{upholder : item.upholderName, id : item.upholderId})}}></FlatBtn>
     );
 
     const addMenu = () =>{
@@ -34,6 +42,7 @@ function AddUpholder(props){
             duration: 30,
             useNativeDriver: false
           }).start();
+        setIsRename(false)
     }
 
     const pull_upholderName = (data) => {
@@ -51,7 +60,7 @@ function AddUpholder(props){
     const search_upholder = (data) => {
         setSearch(data)
     }
-    
+
     return (
         <View style={styles.container}>
             <View style = {[styles.introView,styles.shadow]}>
@@ -67,8 +76,8 @@ function AddUpholder(props){
                 </View>
             </View>
 
-            <TextInput style={[styles.search,styles.shadow]} placeholder='🔍 Search by upholder name' placeholderTextColor="#2596be" autoCapitalize="none" 
-            onChangeText={search_upholder} value={search}/>
+            {props.data.length !== 0 && <TextInput style={[styles.search,styles.shadow]} placeholder='🔍 Search by upholder name' placeholderTextColor="#2596be" autoCapitalize="none" 
+            onChangeText={search_upholder} value={search}/>}
 
             <FlatList 
                 style = {styles.upholderView}
@@ -85,18 +94,19 @@ function AddUpholder(props){
                     <TouchableOpacity onPress={cancelMenu} >
                         <Image style = {styles.cancelImage} source={require('../../assets/close.png')}/>
                     </TouchableOpacity>
-                    <Text style = {styles.animatedText} >Create Upholder</Text>
+                    <Text style = {styles.animatedText} >{isRename ? 'Rename Upholder' : 'Create Upholder'}</Text>
                 </View>
-                <Input2 text={'Add upholder name'} onChangeText={pull_upholderName} value={upholderName}/>
+                <Input2 text={isRename ? 'Enter New Name' : 'Add upholder name'} onChangeText={pull_upholderName} value={upholderName}/>
                 <TouchableOpacity style = {[styles.saveBtn,styles.shadow]} onPress={() => {
-                        props.add({
+                        {isRename ? (props.edit(RenameId,{upholderName : upholderName})) :
+                        (props.add({
                             upholderName:upholderName,
                             upholderId : new Date().getTime(),
                             balance : 0,
                             totalin : 0 ,
                             totalout : 0 ,
                             details : [],
-                        });
+                        }))};
                         setUpholderName('')
                         cancelMenu();
                         }}>
