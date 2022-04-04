@@ -22,7 +22,7 @@ function EditEntry(props){
                     <Text style={styles.text1}>{new Date(transactionData.date).toDateString()}</Text>
                 </View>
                 <View style={styles.view2}>
-                    <Text style={[styles.text2,{color : isIncome ? 'green' : 'red'}]}>{transactionData.amount}</Text>
+                    <Text style={[styles.text2,{color : isIncome ? 'green' : 'red',fontSize : transactionData.amount.length > 7 ? 25 : 50}]}>{transactionData.amount}</Text>
                 </View>
                 <View style={styles.view3}>
                     <Text style={styles.text3Remark}>{transactionData.remark}</Text>

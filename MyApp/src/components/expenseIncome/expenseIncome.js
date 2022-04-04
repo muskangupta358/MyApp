@@ -91,6 +91,9 @@ function ExpenseIncome(props){
               else if(category === ''){
                 Alert.alert('Please Select a Category')
               }
+              else if(paymentType === 1 && amount > props?.data[index].balance){
+                Alert.alert('Insufficient Balance')
+              }
               else{
                 props.add_details(index,{
                   transactionId : new Date().getTime(),
@@ -110,7 +113,12 @@ function ExpenseIncome(props){
             {
               isEdit && 
               <View>
-                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {props.edit_details(index,transactionId,{
+                <TouchableOpacity style={[styles.btn,{backgroundColor : type ? 'green' : '#D2042D'}]} onPress={() => {
+                  if(!type && amount > props?.data[index].balance){
+                    Alert.alert('Insufficient Balance')
+                  }
+                  else{
+                  props.edit_details(index,transactionId,{
                   transactionId : transactionId,
                   amount : amount,
                   remark : remark,
@@ -118,7 +126,7 @@ function ExpenseIncome(props){
                   date : date.toISOString(),
                   paymentMode : paymentMode === 0 ? 'Cash' : 'Online',
                   paymentType : paymentType === 0 ? 'Income' : 'Expense',
-                })
+                  })}
                 props.navigation.goBack();
                 }} >
                   <Text style = {[styles.btnText]} >Edit</Text>

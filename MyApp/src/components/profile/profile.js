@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
-import { Text, View,Button,TouchableOpacity,Image } from 'react-native';
-import styles from './profile.styles';
+import { Text, View,Button,TouchableOpacity,Image,StyleSheet } from 'react-native';
 import Header from '../common/header';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -20,10 +19,51 @@ export default function Profile(props){
     }
 
   return (
-    <View >
-        <Header text={'Profile'} onClick={() => props.navigation.goBack()}/>
-        <Button title='Signout' onPress={()=>{out()}}></Button>
-        <Text>Profile</Text>
+    <View>
+        <View style={styles.upperView}>
+          <Header text={'Profile'} onClick={() => props.navigation.goBack()}/>
+          <View style ={styles.imageView}>
+            <Image style = {styles.profileImg} source={require('../../assets/profile.jpg')}/>
+            <Text style={styles.textSmall}>{props?.route.params.user}</Text>
+          </View>
+        </View>
+        <TouchableOpacity style = {styles.logout} onPress={()=>{out()}}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
     </View>
   );
 }
+
+
+
+const styles = StyleSheet.create({
+  upperView : {
+    backgroundColor : '#2596be',
+    height : 200,
+  },
+  imageView : {
+    alignItems : 'center',
+    position : 'absolute',
+    top : 148,
+    left : 135,
+
+  },
+  profileImg : {
+      height : 120,
+      width : 120,
+      borderRadius : 60
+    },
+    textSmall : {
+      fontSize : 25,
+      marginTop : 5
+    },
+    logout : {
+      marginTop : 150,
+      height : 40,
+      justifyContent : 'center',
+      alignItems : 'center',
+    },
+    logoutText : {
+      fontSize : 20,
+    }
+});

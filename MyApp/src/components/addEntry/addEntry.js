@@ -82,15 +82,15 @@ function AddEntry(props){
             <Header text={props.route.params['upholder']} onClick={() => props.navigation.goBack()}/>
             <View style={[styles.balanceView,styles.shadow]}>
                 <Text style={styles.netText}>Net Balance</Text>
-                <Text style={styles.mainText}>₹{props.data[index].balance}</Text>
+                <Text style={[styles.mainText,{fontSize : props.data[index].balance.toString().length > 10 ? 20 : 50,marginBottom : props.data[index].balance.toString().length > 10 ? 50 : 10}]}>₹{props.data[index].balance}</Text>
                 <View style={[styles.balanceSubiew,styles.shadow]}>
                     <View style={[styles.balanceSubiew2,{borderRightWidth : 1,borderRightColor : 'white',}]}>
                         <Text style={styles.subtext1}>Total In+</Text>
-                        <Text style={[styles.subtext2,/*{fontSize : length > 4 ? 10 : 20}*/]}>₹{props.data[index].totalin}</Text>
+                        <Text style={[styles.subtext2,{fontSize : props.data[index].balance.toString().length > 5 ? 12 : 20}]}>₹{props.data[index].totalin}</Text>
                     </View>
                     <View style={styles.balanceSubiew2}>
                         <Text style={styles.subtext1}>Total Out-</Text>
-                        <Text style={styles.subtext2}>₹{props.data[index].totalout}</Text>
+                        <Text style={[styles.subtext2,{fontSize : props.data[index].balance.toString().length > 5 ? 12 : 20}]}>₹{props.data[index].totalout}</Text>
                     </View>
                 </View>
             </View>

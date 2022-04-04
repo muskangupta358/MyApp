@@ -13,6 +13,19 @@ const IMAGES = {
 
 }
 
+function nFormatter(num) {
+    if (num >= 1000000000) {
+       return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    }
+    if (num >= 1000000) {
+       return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+       return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num;
+}
+
 export default function ShowEntry(props){
     return (
         <TouchableOpacity style={[styles.main,styles.shadow]} onPress={props?.onPress}>
@@ -30,7 +43,7 @@ export default function ShowEntry(props){
                     </View>
                 </View>
             </View>
-            <Text style = {[styles.amount,{color : props?.data.paymentType === 'Income' ? 'green' : 'red'}]} >{props?.data.amount}</Text>
+            <Text style = {[styles.amount,{color : props?.data.paymentType === 'Income' ? 'green' : 'red'}]} >{nFormatter(props?.data.amount)}</Text>
         </TouchableOpacity>
     );
 }

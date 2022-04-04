@@ -25,14 +25,14 @@ function AuthStack(){
     );
 }
 
-function MainStack(){
+function MainStack(props){
+  //console.log(props.user._user.email.split("@")[0])
   return(    
     <Stack2.Navigator screenOptions = {{headerTitleAlign:"center",headerShown:false}}>
-      <Stack2.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack2.Screen name="AddUpholder" component={AddUpholder} />
+      <Stack2.Screen name="AddUpholder" component={AddUpholder} initialParams={{ user : props.user._user.email.split("@")[0] }}/>
       <Stack2.Screen name="AddEntry" component={AddEntry} />
       <Stack2.Screen name="ExpenseIncome" component={ExpenseIncome} />
-      <Stack2.Screen name="Profile" component={Profile}/>
+      <Stack2.Screen name="Profile" component={Profile} initialParams={{ user : props.user._user.email.split("@")[0]}}/>
     </Stack2.Navigator>
     );
 }

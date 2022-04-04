@@ -68,7 +68,7 @@ export default function App() {
   return (
     <Provider store={store} persistor={persistor}>
       <NavigationContainer>
-        <MainStack/>
+        <MainStack user={user}/>
       </NavigationContainer>
     </Provider>
   );
