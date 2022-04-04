@@ -9,8 +9,8 @@ import ForgotPassword from './src/components/forgotPassword/forgotPassword';
 import HomeScreen from './src/components/homeScreen/homeScreen';
 import AddUpholder from './src/components/addUpholder/addUpholder';
 import AddEntry from './src/components/addEntry/addEntry';
-import EntryDetails from './src/components/entryDetails/entryDetails';
 import ExpenseIncome from './src/components/expenseIncome/expenseIncome';
+import Profile from './src/components/profile/profile';
 
 const Stack = createStackNavigator();
 const Stack2 = createStackNavigator();
@@ -25,13 +25,14 @@ function AuthStack(){
     );
 }
 
-function MainStack(){
+function MainStack(props){
+  //console.log(props.user._user.email.split("@")[0])
   return(    
     <Stack2.Navigator screenOptions = {{headerTitleAlign:"center",headerShown:false}}>
-      <Stack2.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack2.Screen name="AddUpholder" component={AddUpholder} />
+      <Stack2.Screen name="AddUpholder" component={AddUpholder} initialParams={{ user : props.user._user.email.split("@")[0] }}/>
       <Stack2.Screen name="AddEntry" component={AddEntry} />
-      <Stack2.Screen name="EntryDetails" component={EntryDetails} />
+      <Stack2.Screen name="ExpenseIncome" component={ExpenseIncome} />
+      <Stack2.Screen name="Profile" component={Profile} initialParams={{ user : props.user._user.email.split("@")[0]}}/>
     </Stack2.Navigator>
     );
 }

@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
   upholderView: {
     flex : 1,
     backgroundColor:'#e1e2e3',
-    padding : 20,
   },    
   search : {
     height : 50,

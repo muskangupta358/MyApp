@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Platform} from 'react-native';
 
 
 const styles = StyleSheet.create({
     container : {
-        height : 310,
+        height : Platform.OS == 'ios' ? 310 : 350,
         width : 350,
         backgroundColor:'white',
         borderRadius : 20,

@@ -1,8 +1,12 @@
 import React,{useEffect,useState} from 'react';
 import { Text, View, StyleSheet ,Alert} from 'react-native';
+
 import messaging from '@react-native-firebase/messaging';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import { Provider } from 'react-redux';
+import { store,persistor } from './src/redux/store';
+import SplashScreen from 'react-native-splash-screen';
 
 import HomeScreen from './src/components/homeScreen/homeScreen';
 import { AuthStack,MainStack } from './AppNavigator';
@@ -18,6 +22,10 @@ export default function App() {
   }
  
   useEffect(() => {
+
+    //********************** Splash Screen *****************/
+    SplashScreen.hide();
+
     // **************** Generate Token *******************
     messaging().getToken().then((response)=> {
       //console.log(response);
@@ -47,16 +55,21 @@ export default function App() {
   if (!user) {
     //console.log('not signed in');
     return (
-      <NavigationContainer>
-        <AuthStack/>
-      </NavigationContainer>
+      <Provider store={store} persistor={persistor}>
+        <NavigationContainer>
+          <AuthStack/>
+        </NavigationContainer>
+      </Provider>
+      
     );
   }
   // console.log('signed in :');
   // console.log(user.email);
   return (
-    <NavigationContainer>
-        <MainStack/>
+    <Provider store={store} persistor={persistor}>
+      <NavigationContainer>
+        <MainStack user={user}/>
       </NavigationContainer>
+    </Provider>
   );
 }

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet,TouchableOpacity,Image } from 'react-native';
 
 export default function CategoryBtn(props){
   return (
-    <TouchableOpacity style = {styles.headerBtn} onPress = {props.onClick}> 
+    <TouchableOpacity style = {styles.headerBtn} onPress = {props?.onPress}> 
         <View style={styles.logo} >
             <Image style = {styles.image} source={props?.url}/>
         </View>      

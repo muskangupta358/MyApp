@@ -1,24 +1,49 @@
 import React,{} from 'react';
 import { Text,View,Image ,TouchableOpacity,StyleSheet} from 'react-native';
 
+const IMAGES = {
+    'Rent' : require('../../assets/house.png'),
+    'Grocery' : require('../../assets/grocery-cart.png'),
+    'Travel' : require('../../assets/vehicle.png'),
+    'Salary' : require('../../assets/salary.png'),
+    'Food' : require('../../assets/salad.png'),
+    'Shopping' : require('../../assets/online-shopping.png'),
+    'Bills' : require('../../assets/budget.png'),
+    'Others' : require('../../assets/question.png'),
+
+}
+
+function nFormatter(num) {
+    if (num >= 1000000000) {
+       return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    }
+    if (num >= 1000000) {
+       return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+       return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num;
+}
+
 export default function ShowEntry(props){
     return (
         <TouchableOpacity style={[styles.main,styles.shadow]} onPress={props?.onPress}>
             <View style={styles.imageView} >
-                <Image style = {styles.image} source={require('../../assets/grocery-cart.png')}/>
+                <Image style = {styles.image} source={IMAGES[props?.data.category]}/>
             </View>
             <View style={styles.subView}>
-                <Text style = {styles.remark} >Upholder 1</Text>
+                <Text style = {styles.remark} >{props?.data.remark}</Text>
                 <View style={styles.subView2}>
                     <View style={styles.view1}> 
-                        <Text style={styles.text1}>Cash</Text>
+                        <Text style={styles.text1}>{props?.data.paymentMode}</Text>
                     </View>
                     <View style={styles.view1} >
-                        <Text style={styles.text1}>Rent</Text>
+                        <Text style={styles.text1}>{props?.data.category}</Text>
                     </View>
                 </View>
             </View>
-            <Text style = {styles.amount} >6678</Text>
+            <Text style = {[styles.amount,{color : props?.data.paymentType === 'Income' ? 'green' : 'red'}]} >{nFormatter(props?.data.amount)}</Text>
         </TouchableOpacity>
     );
 }
@@ -62,7 +87,7 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center',
         marginRight : 10,
-        padding : 5,
+        //padding : 5,
         borderRadius : 7,
     },
     text1 : {
