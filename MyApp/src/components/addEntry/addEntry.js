@@ -82,7 +82,7 @@ function AddEntry(props){
             <Header text={props.route.params['upholder']} onClick={() => props.navigation.goBack()}/>
             <View style={[styles.balanceView,styles.shadow]}>
                 <Text style={styles.netText}>Net Balance</Text>
-                <Text style={[styles.mainText,{fontSize : props.data[index].balance.toString().length > 10 ? 20 : 50,marginBottom : props.data[index].balance.toString().length > 10 ? 50 : 10}]}>₹{props.data[index].balance}</Text>
+                <Text style={[styles.mainText,{fontSize : props.data[index].balance.toString().length > 7 ? 25 : 50,marginBottom : props.data[index].balance.toString().length > 7 ? 40 : 10}]}>₹{props.data[index].balance}</Text>
                 <View style={[styles.balanceSubiew,styles.shadow]}>
                     <View style={[styles.balanceSubiew2,{borderRightWidth : 1,borderRightColor : 'white',}]}>
                         <Text style={styles.subtext1}>Total In+</Text>

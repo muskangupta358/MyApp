@@ -62,7 +62,7 @@ function ExpenseIncome(props){
                 onTabPress={index => {
                     setPaymentType(index);
                 }}/>}
-            <Input2 text={'Enter Amount'} onChangeText={(text) => {setAmount(text)}} value={amount} style={{color : type ? 'green' : '#D2042D'}}/>
+            <Input2 text={'Enter Amount'} onChangeText={(text) => {isNaN(text) ? Alert.alert('Please Enter Amount in Numbers') :setAmount(text)}} value={amount} style={{color : type ? 'green' : '#D2042D'}}/>
             <Input2 text={'Enter Remark'} onChangeText={(text) => {setRemark(text)}} value={remark}/>
             <Input2 text={'Enter Date'} value={date.toISOString().slice(0,10)} onPressIn = {()=>{setOpen(true)}} />
             <Input2 text={'Enter Category'} onChangeText={pull_category} value={category} onPressIn = {()=>{refRBSheet.current.open()}} />
